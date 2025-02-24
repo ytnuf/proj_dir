@@ -18,9 +18,24 @@ namespace Dirs::Linux
 namespace Fs = std::filesystem;
 
 /**
- * @brief Gets the folder for user-specific data files
+ * @brief Get the folder for user-specific non-essential (cached) data
+ */
+Fs::path xdgCacheHome();
+
+/**
+ * @brief Get the folder for user-specific configuration files
+ */
+Fs::path xdgConfigHome();
+
+/**
+ * @brief Get the folder for user-specific data files
  */
 Fs::path xdgDataHome();
+
+/**
+ * @brief Get the folder for  user-specific state data
+ */
+Fs::path xdgStateHome();
 
 
 } // namespace Dirs::Linux
