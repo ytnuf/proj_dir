@@ -1,0 +1,110 @@
+{
+    "version": 8,
+    "configurePresets": [
+        {
+            "name": ".base",
+            "hidden": true,
+            "binaryDir": "${sourceDir}/build/${presetName}/",
+            "cacheVariables": {
+                "CMAKE_EXPORT_COMPILE_COMMANDS": {
+                    "type": "BOOL",
+                    "value": "ON"
+                },
+                "ENABLE_ADDITIONAL_WARNINGS": {
+                    "type": "BOOL",
+                    "value": "ON"
+                }
+            }
+        },
+        {
+            "name": ".debug",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": {
+                    "type": "STRING",
+                    "value": "Debug"
+                }
+            }
+        },
+        {
+            "name": ".release",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": {
+                    "type": "STRING",
+                    "value": "Release"
+                }
+            }
+        },
+        {
+            "name": ".ubsan",
+            "hidden": true,
+            "cacheVariables": {
+                "ENABLE_UNDEFINED_BEHAVIOUR_SANTISER": {
+                    "type": "BOOL",
+                    "value": "ON"
+                }
+            }
+        },
+        {
+            "name": ".ninjamulti",
+            "hidden": true,
+            "generator": "Ninja Multi-Config",
+            "environment": {
+                "NINJA_STATUS": "%p [%es] (%f/%t)  -"
+            },
+            "cacheVariables": {
+                "CMAKE_COLOR_DIAGNOSTICS": {
+                    "type": "BOOL",
+                    "value": "ON"
+                },
+                "USE_CCACHE": {
+                    "type": "BOOL",
+                    "value": "ON"
+                }
+            }
+        },
+        {
+            "name": ".gcc-x64",
+            "hidden": true,
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Linux"
+            },
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": {
+                    "type": "STRING",
+                    "value": "gcc"
+                },
+                "CMAKE_CXX_COMPILER": {
+                    "type": "STRING",
+                    "value": "g++"
+                }
+            }
+        },
+        {
+            "name": "gcc-linux-x64-ninjamulti",
+            "hidden": false,
+            "displayName": "GCC[Linux x64][Ninja Multi]",
+            "description": "Build with g++ and ninja multi-config, for Linux x86_64 target",
+            "inherits": [
+                ".base",
+                ".ninjamulti",
+                ".gcc-x64"
+            ]
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "debug-gcc-linux-x64-ninjamulti",
+            "configurePreset": "gcc-linux-x64-ninjamulti",
+            "configuration": "Debug"
+        },
+        {
+            "name": "release-gcc-linux-x64-ninjamulti",
+            "configurePreset": "gcc-linux-x64-ninjamulti",
+            "configuration": "Release"
+        }
+    ]
+}
