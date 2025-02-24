@@ -9,6 +9,9 @@ project("proj_dirs"
 
 include("cmake/options.cmake")
 
+add_subdirectory("include/")
+add_subdirectory("src/")
+
 include("CTest")
 if(BUILD_TESTING)
     add_subdirectory("tests/")
