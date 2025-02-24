@@ -1,12 +1,16 @@
 
 #include <filesystem>
+#include <initializer_list>
 #include <string_view>
+#include <vector>
 #ifdef __linux__
 
 #include <dirs/linux.hpp>
 
+#include <algorithm>
 #include <cassert>
 #include <cstdlib>
+#include <cstring>
 
 
 namespace Dirs::Linux
@@ -33,6 +37,26 @@ Fs::path getEnvHomeDir(std::string_view envKey, const Fs::path& relDir) {
     }
 }
 
+std::vector<Fs::path> getEnvSystemDirs(
+        std::string_view envKey,
+        std::initializer_list<Fs::path> defaultDirs
+) {
+    const char* dirLstBgn = std::getenv(envKey.data() );
+    if(dirLstBgn) {
+        const char* dirLstEnd = dirLstBgn + std::strlen(dirLstBgn);
+        assert(!*dirLstEnd);
+        std::vector<Fs::path> dataDirLst{};
+        while(dirLstBgn < dirLstEnd) {
+            const auto sepIter = std::find(dirLstBgn, dirLstEnd, ':');
+            dataDirLst.emplace_back(dirLstBgn, sepIter);
+            dirLstBgn = sepIter + 1;
+        }
+        return dataDirLst;
+    } else {
+        return defaultDirs;
+    }
+}
+
 
 } // namespace
 
@@ -51,6 +75,14 @@ Fs::path xdgDataHome() {
 
 Fs::path xdgStateHome(){
     return getEnvHomeDir("XDG_STATE_HOME", "/.local/state");
+}
+
+std::vector<Fs::path> xdgConfigDirs() {
+    return getEnvSystemDirs("XDG_CONFIG_DIRS", {"/etc/xdg"});
+}
+
+std::vector<Fs::path> xdgDataDirs() {
+    return getEnvSystemDirs("XDG_DATA_DIRS", {"/usr/local/share", "/usr/share"});
 }
 
 

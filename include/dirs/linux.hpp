@@ -5,6 +5,7 @@
 #ifdef __linux__
 
 #include <filesystem>
+#include <vector>
 
 
 /**
@@ -36,6 +37,16 @@ Fs::path xdgDataHome();
  * @brief Get the folder for  user-specific state data
  */
 Fs::path xdgStateHome();
+
+/**
+ * @brief Get a list of system folders for configuration files
+ */
+std::vector<Fs::path> xdgConfigDirs();
+
+/**
+ * @brief Get a list of system folders for data files
+ */
+std::vector<Fs::path> xdgDataDirs();
 
 
 } // namespace Dirs::Linux
