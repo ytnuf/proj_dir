@@ -74,6 +74,11 @@
             }
         },
         {
+            "name": ".mingw",
+            "hidden": true,
+            "toolchainFile": "${sourceDir}/cmake/toolchains/mingw64_toolchain.cmake"
+        },
+        {
             "name": "debug-gcc-linux-ninja",
             "hidden": false,
             "displayName": "Debug[GCC][Linux][Ninja]",
@@ -96,6 +101,30 @@
                 ".ninja",
                 ".gcc"
             ]
+        },
+        {
+            "name": "debug-mingw-windows-ninja",
+            "hidden": false,
+            "displayName": "Debug[MinGW][Windows][Ninja]",
+            "description": "Debug build with mingw-w64 and ninja, for Windows target",
+            "inherits": [
+                ".base",
+                ".debug",
+                ".ninja",
+                ".mingw"
+            ]
+        },
+        {
+            "name": "release-mingw-windows-ninja",
+            "hidden": false,
+            "displayName": "Release[MinGW][Windows][Ninja]",
+            "description": "Release build with mingw-w64 and ninja, for Windows target",
+            "inherits": [
+                ".base",
+                ".release",
+                ".ninja",
+                ".mingw"
+            ]
         }
     ],
     "buildPresets": [
@@ -106,6 +135,14 @@
         {
             "name": "release-gcc-linux-ninja",
             "configurePreset": "release-gcc-linux-ninja"
+        },
+        {
+            "name": "debug-mingw-windows-ninja",
+            "configurePreset": "debug-mingw-windows-ninja"
+        },
+        {
+            "name": "release-mingw-windows-ninja",
+            "configurePreset": "release-mingw-windows-ninja"
         }
     ]
 }
