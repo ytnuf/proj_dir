@@ -3,6 +3,7 @@ include_guard(GLOBAL)
 
 # These variables should be set by presets
 option(USE_CCACHE "Use ccache if found" OFF)
+option(BUILD_TESTING "Build the testing tree" OFF)
 
 # Note that CMAKE_<LANG>_COMPILER_LAUNCHER would need to set before the project() call
 if(USE_CCACHE)
@@ -23,4 +24,8 @@ if(USE_CCACHE)
     else()
         message(WARNING "Unable to find ccache")
     endif()
+endif()
+
+if(BUILD_TESTING)
+  list(APPEND VCPKG_MANIFEST_FEATURES "testing")
 endif()
