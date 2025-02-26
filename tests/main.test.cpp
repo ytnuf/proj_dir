@@ -2,36 +2,23 @@
 #include <dirs/linux.hpp>
 #include <dirs/windows.hpp>
 
-#ifdef _WIN32
-    #include <cstdio>
-    #include <fcntl.h>
-    #include <io.h>
-#else
-    #include <iostream>
-#endif // ifdef _WIN32
-
-
-
+#include <fmt/base.h>
+#include <fmt/ranges.h>
+#include <fmt/std.h>
 
 int main() {
 #ifdef __linux__
-    std::cout<<"Linux directories: "<<std::endl;
-    std::cout<<"xdgCacheHome: "<<Dirs::Linux::xdgCacheHome()<<std::endl;
-    std::cout<<"xdgConfigHome: "<<Dirs::Linux::xdgConfigHome()<<std::endl;
-    std::cout<<"xdgDataHome: "<<Dirs::Linux::xdgDataHome()<<std::endl;
-    std::cout<<"xdgStateHome: "<<Dirs::Linux::xdgStateHome()<<std::endl;
-    std::cout<<"xdgConfigDirs:   ";
-    for(const auto& dir : Dirs::Linux::xdgConfigDirs() )
-        std::cout<<dir<<"; ";
-    std::cout<<std::endl;
-    std::cout<<"xdgDataDirs:   ";
-    for(const auto& dir : Dirs::Linux::xdgDataDirs() )
-        std::cout<<dir<<"; ";
-    std::cout<<std::endl;
+    using namespace Dirs::Linux;
+    fmt::println("Linux directories: ");
+    fmt::println("xdgCacheHome: {}", xdgCacheHome() );
+    fmt::println("xdgConfigHome: {}", xdgConfigHome() );
+    fmt::println("xdgDataHome: {}", xdgDataHome() );
+    fmt::println("xdgStateHome: {}", xdgStateHome() );
+    fmt::println("xdgConfigDirs:  {}", fmt::join(xdgConfigDirs(), "; ") );
+    fmt::println("xdgDataDirs:  {}", fmt::join(xdgDataDirs(), "; ") );
 #elif defined(_WIN32)
-    _setmode(_fileno(stdout), _O_U16TEXT);
-    std::wprintf(L"Windows directories: \n");
-    std::wprintf(L"%S\n", Dirs::Win::roamingAppData().c_str() );
+    using namespace Dirs::Win;
+    fmt::print("roamingAppData: {}\n", roamingAppData() );
 #endif // #ifdef OS
 
     return 0;
