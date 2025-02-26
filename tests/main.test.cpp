@@ -1,7 +1,16 @@
 
 #include <dirs/linux.hpp>
+#include <dirs/windows.hpp>
 
-#include <iostream>
+#ifdef _WIN32
+    #include <cstdio>
+    #include <fcntl.h>
+    #include <io.h>
+#else
+    #include <iostream>
+#endif // ifdef _WIN32
+
+
 
 
 int main() {
@@ -19,7 +28,11 @@ int main() {
     for(const auto& dir : Dirs::Linux::xdgDataDirs() )
         std::cout<<dir<<"; ";
     std::cout<<std::endl;
-#endif // #ifdef __linux__
+#elif defined(_WIN32)
+    _setmode(_fileno(stdout), _O_U16TEXT);
+    std::wprintf(L"Windows directories: \n");
+    std::wprintf(L"%S\n", Dirs::Win::roamingAppData().c_str() );
+#endif // #ifdef OS
 
     return 0;
 }

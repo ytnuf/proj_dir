@@ -4,9 +4,19 @@
 
 #ifdef _WIN32
 
+#include <filesystem>
+
 
 namespace Dirs::Win
-{} // namespace Dirs::Win
+{
+
+
+namespace Fs = std::filesystem;
+
+Fs::path roamingAppData();
+
+
+} // namespace Dirs::Win
 
 
 #endif // ifdef _WIN32
