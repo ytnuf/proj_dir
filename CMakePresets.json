@@ -5,6 +5,7 @@
             "name": ".base",
             "hidden": true,
             "binaryDir": "${sourceDir}/build/${presetName}/",
+            "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
             "cacheVariables": {
                 "CMAKE_EXPORT_COMPILE_COMMANDS": {
                     "type": "BOOL",
@@ -70,13 +71,26 @@
                 "CMAKE_CXX_COMPILER": {
                     "type": "STRING",
                     "value": "g++"
+                },
+                "VCPKG_TARGET_TRIPLET": {
+                    "type": "STRING",
+                    "value": "x64-linux"
                 }
             }
         },
         {
             "name": ".mingw",
             "hidden": true,
-            "toolchainFile": "${sourceDir}/cmake/toolchains/mingw64_toolchain.cmake"
+            "cacheVariables": {
+                "VCPKG_CHAINLOAD_TOOLCHAIN_FILE": {
+                    "type": "FILEPATH",
+                    "value": "${sourceDir}/cmake/toolchains/mingw64_toolchain.cmake"
+                },
+                "VCPKG_TARGET_TRIPLET": {
+                    "type": "STRING",
+                    "value": "x64-mingw-static"
+                }
+            }
         },
         {
             "name": "debug-gcc-linux-ninja",
