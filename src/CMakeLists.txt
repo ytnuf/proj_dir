@@ -10,3 +10,17 @@ target_sources("proj-dir-lib" PRIVATE
 target_link_libraries("proj-dir-lib"
     PUBLIC "proj-dir::lib::inc"
 )
+
+include("GNUInstallDirs")
+install(TARGETS "proj-dir-lib"
+    EXPORT "proj-dir-config"
+    RUNTIME
+        DESTINATION "${CMAKE_INSTALL_BINDIR}"
+        COMPONENT "funty-runtime"
+    LIBRARY
+        DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+        COMPONENT "funty-dev"
+    ARCHIVE
+        DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+        COMPONENT "funty-dev"
+)

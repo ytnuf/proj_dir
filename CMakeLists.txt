@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.29)
 
 include("cmake/pre_project.cmake")
 
-project("proj_dirs"
+project("proj-dir"
     LANGUAGES "CXX"
 )
 
@@ -16,6 +16,11 @@ include("CTest")
 if(BUILD_TESTING)
     add_subdirectory("tests/")
 endif()
+
+install(EXPORT "proj-dir-config"
+    DESTINATION "${PROJDIR_CMAKEDIR}"
+    COMPONENT "funty-dev"
+)
 
 # Prevents false-positive warning
 block()

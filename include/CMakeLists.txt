@@ -6,3 +6,15 @@ target_sources("proj-dir-lib-inc" INTERFACE FILE_SET HEADERS FILES
     "proj_dir/linux.hpp"
     "proj_dir/windows.hpp"
 )
+
+include("GNUInstallDirs")
+install(TARGETS "proj-dir-lib-inc"
+    EXPORT "proj-dir-config"
+    FILE_SET HEADERS
+    LIBRARY
+        DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
+        COMPONENT "funty-dev"
+    ARCHIVE
+        DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
+        COMPONENT "funty-dev"
+)
