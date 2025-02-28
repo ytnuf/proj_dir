@@ -2,6 +2,7 @@
 add_library("proj-dir-lib")
 add_library("proj-dir::lib" ALIAS "proj-dir-lib")
 target_sources("proj-dir-lib" PRIVATE
+    "folders.cpp"
     "linux.cpp"
     "windows.cpp"
 )
