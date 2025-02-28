@@ -7,6 +7,8 @@ option(ENABLE_ADDITIONAL_WARNINGS "Turn on addtional warnings" OFF)
 option(ENABLE_ADDRESS_SANTISER "Turn on sanitiser for memory errors, can noticeable slow down execution (for GCC, Clang & MSVC)" OFF)
 option(ENABLE_UNDEFINED_BEHAVIOUR_SANTISER "Turn on sanitiser for undefined behaviour (for GCC & Clang)" OFF)
 
+include("GNUInstallDirs")
+set(PROJDIR_CMAKEDIR "${CMAKE_INSTALL_DATADIR}/proj-dir" CACHE PATH "The folder to place the cmake config files for proj-dir")
 
 add_library("proj-dirs-options" INTERFACE)
 add_library("proj-dirs::options" ALIAS "proj-dirs-options")
