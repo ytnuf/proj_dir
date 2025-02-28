@@ -21,6 +21,10 @@ install(EXPORT "proj-dir-config"
     DESTINATION "${PROJDIR_CMAKEDIR}"
     COMPONENT "funty-dev"
 )
+include("GNUInstallDirs")
+install(FILES "LICENSE.txt"
+    DESTINATION "${CMAKE_INSTALL_DATADIR}/licenses/proj-dir"
+)
 
 # Prevents false-positive warning
 block()
