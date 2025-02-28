@@ -1,4 +1,5 @@
 
+#include <proj_dir/folders.hpp>
 #include <proj_dir/linux.hpp>
 #include <proj_dir/windows.hpp>
 
@@ -7,7 +8,11 @@
 #include <fmt/std.h>
 
 int main() {
-#ifdef __linux__
+    using namespace ProjDir;
+    fmt::println("Project Directories: ");
+    fmt::println("stateDir: {}", stateDir("proj_dir", "funty") );
+    fmt::println("");
+    #ifdef __linux__
     using namespace ProjDir::Linux;
     fmt::println("Linux directories: ");
     fmt::println("xdgCacheHome: {}", xdgCacheHome() );
@@ -18,6 +23,7 @@ int main() {
     fmt::println("xdgDataDirs:  {}", fmt::join(xdgDataDirs(), "; ") );
 #elif defined(_WIN32)
     using namespace ProjDir::Win;
+    fmt::println("Windows directories: ");
     fmt::println("roamingAppData: {}", roamingAppData() );
     fmt::println("adminTools: {}", adminTools() );
     fmt::println("commonAdminTools: {}", commonAdminTools() );
