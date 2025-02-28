@@ -11,6 +11,10 @@ target_link_libraries("proj-dir-lib"
     PUBLIC "proj-dir::lib::inc"
 )
 
+set_target_properties("proj-dir-lib" PROPERTIES
+    EXPORT_NAME "lib"
+)
+
 include("GNUInstallDirs")
 install(TARGETS "proj-dir-lib"
     EXPORT "proj-dir-config"

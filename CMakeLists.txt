@@ -18,6 +18,7 @@ if(BUILD_TESTING)
 endif()
 
 install(EXPORT "proj-dir-config"
+    NAMESPACE "proj-dir::"
     DESTINATION "${PROJDIR_CMAKEDIR}"
     COMPONENT "funty-dev"
 )
