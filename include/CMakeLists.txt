@@ -1,7 +1,7 @@
 
-add_library("proj-dirs-headers" INTERFACE)
-add_library("proj-dirs::headers" ALIAS "proj-dirs-headers")
-target_sources("proj-dirs-headers" INTERFACE FILE_SET HEADERS FILES
-    "dirs/linux.hpp"
-    "dirs/windows.hpp"
+add_library("proj-dir-lib-inc" INTERFACE)
+add_library("proj-dir::lib::inc" ALIAS "proj-dir-lib-inc")
+target_sources("proj-dir-lib-inc" INTERFACE FILE_SET HEADERS FILES
+    "proj_dir/linux.hpp"
+    "proj_dir/windows.hpp"
 )

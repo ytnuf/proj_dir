@@ -1,6 +1,6 @@
 
-#include <dirs/linux.hpp>
-#include <dirs/windows.hpp>
+#include <proj_dir/linux.hpp>
+#include <proj_dir/windows.hpp>
 
 #include <fmt/base.h>
 #include <fmt/ranges.h>
@@ -8,7 +8,7 @@
 
 int main() {
 #ifdef __linux__
-    using namespace Dirs::Linux;
+    using namespace ProjDir::Linux;
     fmt::println("Linux directories: ");
     fmt::println("xdgCacheHome: {}", xdgCacheHome() );
     fmt::println("xdgConfigHome: {}", xdgConfigHome() );
@@ -17,7 +17,7 @@ int main() {
     fmt::println("xdgConfigDirs:  {}", fmt::join(xdgConfigDirs(), "; ") );
     fmt::println("xdgDataDirs:  {}", fmt::join(xdgDataDirs(), "; ") );
 #elif defined(_WIN32)
-    using namespace Dirs::Win;
+    using namespace ProjDir::Win;
     fmt::println("roamingAppData: {}", roamingAppData() );
     fmt::println("adminTools: {}", adminTools() );
     fmt::println("commonAdminTools: {}", commonAdminTools() );
