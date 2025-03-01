@@ -30,14 +30,50 @@ path getRelDir(string_view projName, string_view orgName) {
 } // namespace
 
 
+path cacheDir(string_view projName, string_view orgName) {
+    const auto relDir = getRelDir(projName, orgName);
+#ifdef __linux__
+    return Linux::xdgCacheHome() / relDir;
+#else
+    return Win::localAppData() / "Temp" / relDir;
+#endif // #ifdef OS
+}
+
+path configDir(string_view projName, string_view orgName) {
+    const auto relDir = getRelDir(projName, orgName);
+#ifdef __linux__
+    return Linux::xdgConfigHome() / relDir;
+#elif defined(_WIN32)
+    return Win::roamingAppData() / relDir / "config_folder";
+#endif // #ifdef OS
+}
+
+path dataDir(string_view projName, string_view orgName) {
+    const auto relDir = getRelDir(projName, orgName);
+#ifdef __linux__
+    return Linux::xdgDataHome() / relDir;
+#elif defined(_WIN32)
+    return Win::roamingAppData() / relDir;
+#else
+    static_assert(false, "Unsupported OS");
+#endif // #ifdef OS
+}
+
+path gameSaveDir(string_view projName, string_view orgName) {
+#ifdef _WIN32
+    const auto relDir = getRelDir(projName, orgName);
+    return Win::savedGames() / relDir;
+#else
+    return dataDir(projName, orgName) / "save_folder";
+#endif // #ifdef OS
+}
+
 path stateDir(string_view projName, string_view orgName) {
     const auto relDir = getRelDir(projName, orgName);
 #ifdef __linux__
-    const auto stateBase = Linux::xdgStateHome();
-    return stateBase / relDir;
+    return Linux::xdgStateHome() / relDir;
 #elif defined(_WIN32)
-    const auto stateBase = Win::localAppData();
-    return stateBase / relDir;
+    return Win::localAppData() / relDir;
 #else
     static_assert(false, "Unsupported OS");
 #endif // #ifdef OS

@@ -12,6 +12,34 @@ namespace ProjDir
 
 
 /**
+ * @brief The folder for the project's user-specific cache files
+ * @param projName - A name for the project
+ * @param orgName - A name for the organisation (can be empty)
+ */
+std::filesystem::path cacheDir(std::string_view projName, std::string_view orgName = "");
+
+/**
+ * @brief The folder for the project's user-specific config files
+ * @param projName - A name for the project
+ * @param orgName - A name for the organisation (can be empty)
+ */
+std::filesystem::path configDir(std::string_view projName, std::string_view orgName = "");
+
+/**
+ * @brief The folder for the project's user-specific data files
+ * @param projName - A name for the project
+ * @param orgName - A name for the organisation (can be empty)
+ */
+std::filesystem::path dataDir(std::string_view projName, std::string_view orgName = "");
+
+/**
+ * @brief The folder for the project's save data
+ * @param projName - A name for the project
+ * @param orgName - A name for the organisation (can be empty)
+ */
+std::filesystem::path gameSaveDir(std::string_view projName, std::string_view orgName = "");
+
+/**
  * @brief The folder for the project's user-specific state files
  * @param projName - A name for the project
  * @param orgName - A name for the organisation (can be empty)

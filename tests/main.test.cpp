@@ -10,6 +10,10 @@
 int main() {
     using namespace ProjDir;
     fmt::println("Project Directories: ");
+    fmt::println("cacheDir: {}", cacheDir("proj_dir", "funty") );
+    fmt::println("configDir: {}", configDir("proj_dir", "funty") );
+    fmt::println("dataDir: {}", dataDir("proj_dir", "funty") );
+    fmt::println("gameSaveDir: {}", gameSaveDir("proj_dir", "funty") );
     fmt::println("stateDir: {}", stateDir("proj_dir", "funty") );
     fmt::println("");
     #ifdef __linux__
