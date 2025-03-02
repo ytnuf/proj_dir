@@ -7,6 +7,10 @@
 #include <filesystem>
 
 
+/**
+ * @brief Contains functions to get the Known Folders
+ * @see https://learn.microsoft.com/en-us/windows/win32/shell/known-folders
+ */
 namespace ProjDir::Win
 {
 

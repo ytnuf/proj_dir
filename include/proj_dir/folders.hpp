@@ -7,6 +7,9 @@
 #include <string_view>
 
 
+/**
+ * @brief Contains functions to get various directables to be used by applications
+ */
 namespace ProjDir
 {
 
