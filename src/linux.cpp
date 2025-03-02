@@ -1,5 +1,4 @@
 
-#include <filesystem>
 #ifdef __linux__
 
 #include <proj_dir/linux.hpp>
@@ -8,7 +7,10 @@
 #include <cassert>
 #include <cstdlib>
 #include <cstring>
+#include <filesystem>
 #include <initializer_list>
+#include <iostream>
+#include <stdexcept>
 #include <string_view>
 #include <vector>
 
@@ -78,6 +80,22 @@ path xdgDataHome() {
 
 path xdgStateHome(){
     return getEnvHomeDir("XDG_STATE_HOME", "/.local/state");
+}
+
+path xdgRuntimeDir() {
+    if(const char* runtimeDir = std::getenv("XDG_RUNTIME_DIR") )
+        return runtimeDir;
+    std::cerr<<"Error cannot obtain $XDG_RUNTIME_DIR, using a fallback!"<<std::endl;
+
+    const char* userId = std::getenv("UID");
+    if(!userId)
+        throw std::runtime_error("No $UID for a suitable runtime folder");
+    else if(auto runDir = path("/run/user") / userId; std::filesystem::exists(runDir) )
+        return runDir;
+    else if(auto varRunDir = path("/var/run/user") / userId; std::filesystem::exists(varRunDir) )
+        return varRunDir;
+    else
+        throw std::runtime_error("Unable to find a suitable runtime folder, all fallbacks failed");
 }
 
 std::vector<path> xdgConfigDirs() {

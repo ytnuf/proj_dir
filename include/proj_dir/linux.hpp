@@ -32,9 +32,14 @@ std::filesystem::path xdgConfigHome();
 std::filesystem::path xdgDataHome();
 
 /**
- * @brief Get the folder for  user-specific state data
+ * @brief Get the folder for user-specific state data
  */
 std::filesystem::path xdgStateHome();
+
+/**
+ * @brief Get the folder for user-specific runtime files
+ */
+std::filesystem::path xdgRuntimeDir();
 
 /**
  * @brief Get a list of system folders for configuration files
