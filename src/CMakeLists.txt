@@ -7,6 +7,8 @@ target_sources("proj-dir-lib" PRIVATE
     "windows.cpp"
 )
 
+target_compile_features("proj-dir-lib" PUBLIC "cxx_std_17")
+
 target_link_libraries("proj-dir-lib"
     PUBLIC "proj-dir::lib::inc"
 )
