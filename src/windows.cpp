@@ -7,6 +7,7 @@
 #include <shlobj.h>
 #include <winnt.h>
 
+#include <cstddef>
 #include <filesystem>
 #include <memory>
 #include <stdexcept>
@@ -17,7 +18,7 @@ namespace ProjDir::Win
 {
 
 
-using std::filesystem::path;
+using std::filesystem::path, std::size_t;
 
 
 namespace
@@ -25,19 +26,17 @@ namespace
 
 
 path getKnownFolder(REFKNOWNFOLDERID rfid, const std::string& name) {
-    PWSTR path_raw_;
+    PWSTR path_raw_ = nullptr;
     const auto err = SHGetKnownFolderPath(rfid, 0, nullptr, &path_raw_);
-    if(err == S_OK) {
-        // As path's constructor can throw, let's first wrap the pointer in a unique_ptr to prevent any memory leak
-        std::unique_ptr<WCHAR, decltype(&CoTaskMemFree)> path_{path_raw_, &CoTaskMemFree};
-        return path{path_.get()};
-    } else if(err == E_INVALIDARG) {
+    std::unique_ptr<WCHAR, decltype(&CoTaskMemFree)> path_{path_raw_, &CoTaskMemFree};
+    if(err == S_OK)
+        return path(path_.get() );
+    else if(err == E_INVALIDARG)
         throw std::runtime_error("SHGetKnownFolderPath: system doesn't contain KNOWNFOLDERID~" + name);
-    } else if(err == E_FAIL) {
+    else if(err == E_FAIL)
         throw std::runtime_error("SHGetKnownFolderPath: can't find path for KNOWNFOLDERID~" + name);
-    } else {
+    else
         throw std::runtime_error("Miscellaneous error for SHGetKnownFolderPath: ~" + name);
-    }
 }
 
 
@@ -45,9 +44,9 @@ path getKnownFolder(REFKNOWNFOLDERID rfid, const std::string& name) {
 
 
 path exeDir() {
-    constexpr size_t maxBufferLength = 32768;
+    constexpr size_t maxBufferLength = 32768u;
     for(size_t bufferLength = 256; bufferLength <= maxBufferLength; bufferLength *= 2) {
-        const auto buffer = std::make_unique<wchar_t[]>(bufferLength);
+        const auto buffer = std::make_unique<WCHAR[]>(bufferLength); // NOLINT
         const size_t pathLength = GetModuleFileNameW(nullptr, buffer.get(), bufferLength);
         if(!pathLength) // GetModuleFileNameW returns 0 on failure
             throw std::runtime_error("GetModuleFileNameW failed");
@@ -56,6 +55,7 @@ path exeDir() {
             return path{buffer.get()}.parent_path();
         }
     }
+    throw std::runtime_error("File path to executable is too long");
 }
 
 
