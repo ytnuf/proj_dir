@@ -15,6 +15,7 @@ target_link_libraries("proj-dir-lib"
 
 set_target_properties("proj-dir-lib" PROPERTIES
     EXPORT_NAME "lib"
+    WINDOWS_EXPORT_ALL_SYMBOLS ON   # Kinda evil, but it'll do for now (check git blame for more info)
 )
 
 include("GNUInstallDirs")
