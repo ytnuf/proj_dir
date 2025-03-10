@@ -66,6 +66,11 @@ std::vector<path> getEnvSystemDirs(
 } // namespace
 
 
+path exeDir() {
+    // Note that this is currently not that portable
+    return std::filesystem::canonical(u8"/proc/self/exe").parent_path();
+}
+
 path xdgCacheHome(){
     return getEnvHomeDir("XDG_CACHE_HOME", ".cache");
 }

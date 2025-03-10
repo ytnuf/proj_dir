@@ -17,6 +17,11 @@ namespace ProjDir::Linux
 
 
 /**
+ * @brief The folder that contains the directory
+ */
+std::filesystem::path exeDir();
+
+/**
  * @brief Get the folder for user-specific non-essential (cached) data
  */
 std::filesystem::path xdgCacheHome();

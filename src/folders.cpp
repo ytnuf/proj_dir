@@ -30,6 +30,17 @@ path getRelDir(string_view projName, string_view orgName) {
 } // namespace
 
 
+path exeDir()
+{
+#ifdef __linux__
+    return Linux::exeDir();
+#elif defined(_WIN32)
+    return Win::exeDir();
+#else
+    static_assert(false, "Unsupported OS");
+#endif // #ifdef OS
+}
+
 path cacheDir(string_view projName, string_view orgName)
 {
     const auto relDir = getRelDir(projName, orgName);

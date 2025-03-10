@@ -15,6 +15,11 @@ namespace ProjDir
 
 
 /**
+ * @brief The folder that contains the directory
+ */
+std::filesystem::path exeDir();
+
+/**
  * @brief The folder for the project's user-specific cache files
  * @param projName - A name for the project
  * @param orgName - A name for the organisation (can be empty)

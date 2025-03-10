@@ -44,6 +44,21 @@ path getKnownFolder(REFKNOWNFOLDERID rfid, const std::string& name) {
 } // namespace
 
 
+path exeDir() {
+    constexpr size_t maxBufferLength = 32768;
+    for(size_t bufferLength = 256; bufferLength <= maxBufferLength; bufferLength *= 2) {
+        const auto buffer = std::make_unique<wchar_t[]>(bufferLength);
+        const size_t pathLength = GetModuleFileNameW(nullptr, buffer.get(), bufferLength);
+        if(!pathLength) // GetModuleFileNameW returns 0 on failure
+            throw std::runtime_error("GetModuleFileNameW failed");
+        if(pathLength < bufferLength - 1) { // If it was truncated (not enough room) then pathLength >= bufferLength - 1
+            buffer[pathLength] = L'\0';
+            return path{buffer.get()}.parent_path();
+        }
+    }
+}
+
+
 path accountPictures() {
     return getKnownFolder(FOLDERID_AccountPictures, "AccountPictures");
 }

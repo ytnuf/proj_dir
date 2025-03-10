@@ -15,6 +15,8 @@ namespace ProjDir::Win
 {
 
 
+std::filesystem::path exeDir();
+
 std::filesystem::path accountPictures();
 std::filesystem::path adminTools();
 
@@ -83,7 +85,7 @@ std::filesystem::path videos();
 std::filesystem::path windows();
 
 
-} // namespace Dirs::Win
+} // namespace ProjDir::Win
 
 
 #endif // ifdef _WIN32

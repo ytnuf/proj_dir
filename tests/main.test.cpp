@@ -10,6 +10,7 @@
 int main() {
     using namespace ProjDir;
     fmt::println("Project Directories: ");
+    fmt::println("exeDir: {}", exeDir() );
     fmt::println("cacheDir: {}", cacheDir("proj_dir", "funty") );
     fmt::println("configDir: {}", configDir("proj_dir", "funty") );
     fmt::println("dataDir: {}", dataDir("proj_dir", "funty") );
