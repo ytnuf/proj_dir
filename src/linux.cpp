@@ -3,6 +3,8 @@
 
 #include <proj_dir/linux.hpp>
 
+#include <unistd.h>
+
 #include <algorithm>
 #include <cassert>
 #include <cstdlib>
@@ -11,6 +13,7 @@
 #include <initializer_list>
 #include <iostream>
 #include <stdexcept>
+#include <string>
 #include <string_view>
 #include <vector>
 
@@ -19,7 +22,7 @@ namespace ProjDir::Linux
 {
 
 
-using std::filesystem::path;
+using std::filesystem::path, std::string_literals::operator""s;
 
 
 /*
@@ -67,9 +70,15 @@ std::vector<path> getEnvSystemDirs(
 
 
 path exeDir() {
-    // Note that this is currently not that portable
-    return std::filesystem::canonical(u8"/proc/self/exe").parent_path();
+    using std::filesystem::canonical;
+    try {
+        return canonical("/proc/self/exe").parent_path();
+    } catch(std::filesystem::filesystem_error& ex) {
+        std::cerr<<ex.what()<<std::endl;
+        return canonical("/proc/"s + std::to_string(getpid() ) + "/exe"s).parent_path();
+    }
 }
+
 
 path xdgCacheHome(){
     return getEnvHomeDir("XDG_CACHE_HOME", ".cache");
@@ -92,8 +101,7 @@ path xdgRuntimeDir() {
         return runtimeDir;
     std::cerr<<"Error cannot obtain $XDG_RUNTIME_DIR, using a fallback!"<<std::endl;
 
-    const char* userId = std::getenv("UID");
-    if(!userId)
+    if(const char* userId = std::getenv("UID") )
         throw std::runtime_error("No $UID for a suitable runtime folder");
     else if(auto runDir = path("/run/user") / userId; std::filesystem::exists(runDir) )
         return runDir;
