@@ -18,6 +18,10 @@
                 "ENABLE_ADDITIONAL_WARNINGS": {
                     "type": "BOOL",
                     "value": "ON"
+                },
+                "FUNTY_BUILD_DOCS": {
+                    "type": "BOOL",
+                    "value": "ON"
                 }
             }
         },

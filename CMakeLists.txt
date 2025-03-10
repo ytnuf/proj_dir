@@ -17,6 +17,10 @@ if(BUILD_TESTING)
     add_subdirectory("tests/")
 endif()
 
+if(FUNTY_BUILD_DOCS)
+    add_subdirectory("docs/")
+endif()
+
 install(EXPORT "proj-dir-config"
     NAMESPACE "proj-dir::"
     DESTINATION "${PROJDIR_CMAKEDIR}"

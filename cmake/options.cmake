@@ -10,6 +10,8 @@ option(ENABLE_UNDEFINED_BEHAVIOUR_SANTISER "Turn on sanitiser for undefined beha
 include("GNUInstallDirs")
 set(PROJDIR_CMAKEDIR "${CMAKE_INSTALL_DATADIR}/proj-dir" CACHE PATH "The folder to place the cmake config files for proj-dir")
 
+option(FUNTY_BUILD_DOCS "Build documentations" OFF)
+
 add_library("proj-dirs-options" INTERFACE)
 add_library("proj-dirs::options" ALIAS "proj-dirs-options")
 
