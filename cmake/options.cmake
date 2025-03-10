@@ -1,14 +1,14 @@
 
 include_guard(DIRECTORY)
 
-option(ENABLE_ADDITIONAL_WARNINGS "Turn on addtional warnings" OFF)
+option(FUNTY_ENABLE_ADDITIONAL_WARNINGS "Turn on addtional warnings" OFF)
 
 # The sanitisers runtime libraries (e.g libubsan) may need to be installed
-option(ENABLE_ADDRESS_SANTISER "Turn on sanitiser for memory errors, can noticeable slow down execution (for GCC, Clang & MSVC)" OFF)
-option(ENABLE_UNDEFINED_BEHAVIOUR_SANTISER "Turn on sanitiser for undefined behaviour (for GCC & Clang)" OFF)
+option(FUNTY_ENABLE_ADDRESS_SANTISER "Turn on sanitiser for memory errors, can noticeable slow down execution (for GCC, Clang & MSVC)" OFF)
+option(FUNTY_ENABLE_UNDEFINED_BEHAVIOUR_SANTISER "Turn on sanitiser for undefined behaviour (for GCC & Clang)" OFF)
 
 include("GNUInstallDirs")
-set(PROJDIR_CMAKEDIR "${CMAKE_INSTALL_DATADIR}/proj-dir" CACHE PATH "The folder to place the cmake config files for proj-dir")
+set(FUNTY_PROJDIR_CMAKEDIR "${CMAKE_INSTALL_DATADIR}/proj-dir" CACHE PATH "The folder to place the cmake config files for proj-dir")
 
 option(FUNTY_BUILD_DOCS "Build documentations" OFF)
 
@@ -23,7 +23,7 @@ set(COMPILER_IS_GCC_OR_CLANG "$<OR:${COMPILER_IS_GCC},${COMPILER_IS_CLANG}>")
 set(COMPILER_IS_MSVC "$<CXX_COMPILER_ID:MSVC>")
 
 
-if(ENABLE_ADDITIONAL_WARNINGS)
+if(FUNTY_ENABLE_ADDITIONAL_WARNINGS)
     target_compile_options("proj-dirs-options" INTERFACE
         $<${COMPILER_IS_GCC_OR_CLANG}:
             # Basic warnings
@@ -109,7 +109,7 @@ if(ENABLE_ADDITIONAL_WARNINGS)
 endif()
 
 
-if(ENABLE_UNDEFINED_BEHAVIOUR_SANTISER)
+if(FUNTY_ENABLE_UNDEFINED_BEHAVIOUR_SANTISER)
     target_compile_options("proj-dirs-options" INTERFACE
         $<${COMPILER_IS_GCC_OR_CLANG}:
             -fsanitize=undefined
@@ -122,7 +122,7 @@ if(ENABLE_UNDEFINED_BEHAVIOUR_SANTISER)
     )
 endif()
 
-if(ENABLE_ADDRESS_SANTISER)
+if(FUNTY_ENABLE_ADDRESS_SANTISER)
     target_compile_options("proj-dirs-options" INTERFACE
         $<${COMPILER_IS_GCC_OR_CLANG}:
             -fsanitize=address

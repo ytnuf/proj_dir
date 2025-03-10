@@ -13,7 +13,7 @@ add_subdirectory("include/")
 add_subdirectory("src/")
 
 include("CTest")
-if(BUILD_TESTING)
+if(FUNTY_BUILD_TESTING)
     add_subdirectory("tests/")
 endif()
 
@@ -23,7 +23,7 @@ endif()
 
 install(EXPORT "proj-dir-config"
     NAMESPACE "proj-dir::"
-    DESTINATION "${PROJDIR_CMAKEDIR}"
+    DESTINATION "${FUNTY_PROJDIR_CMAKEDIR}"
     COMPONENT "funty-dev"
 )
 include("GNUInstallDirs")

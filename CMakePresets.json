@@ -7,19 +7,19 @@
             "binaryDir": "${sourceDir}/build/${presetName}/",
             "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
             "cacheVariables": {
-                "BUILD_TESTING": {
-                    "type": "BOOL",
-                    "value": "ON"
-                },
                 "CMAKE_EXPORT_COMPILE_COMMANDS": {
                     "type": "BOOL",
                     "value": "ON"
                 },
-                "ENABLE_ADDITIONAL_WARNINGS": {
+                "FUNTY_BUILD_DOCS": {
                     "type": "BOOL",
                     "value": "ON"
                 },
-                "FUNTY_BUILD_DOCS": {
+                "FUNTY_BUILD_TESTING": {
+                    "type": "BOOL",
+                    "value": "ON"
+                },
+                "FUNTY_ENABLE_ADDITIONAL_WARNINGS": {
                     "type": "BOOL",
                     "value": "ON"
                 }
@@ -57,7 +57,7 @@
                     "type": "BOOL",
                     "value": "ON"
                 },
-                "USE_CCACHE": {
+                "FUNTY_USE_CCACHE": {
                     "type": "BOOL",
                     "value": "ON"
                 }
