@@ -35,22 +35,19 @@ namespace
 
 
 path getEnvHomeDir(std::string_view envKey, const path& relDir) {
-    const char* envDir = std::getenv(envKey.data() );
-    if(envDir) {
+    if(const char* envDir = std::getenv(envKey.data() ) )
         return envDir;
-    } else {
-        const char* homeDir = std::getenv("HOME");
-        assert(homeDir);
+    else if(const char* homeDir = std::getenv("HOME") )
         return path(homeDir) / relDir;
-    }
+    else
+        throw std::runtime_error("$HOME is required to be set, per POSIX");
 }
 
 std::vector<path> getEnvSystemDirs(
         std::string_view envKey,
         std::initializer_list<path> defaultDirs
 ) {
-    const char* dirLstBgn = std::getenv(envKey.data() );
-    if(dirLstBgn) {
+    if(const char* dirLstBgn = std::getenv(envKey.data() ) ) {
         const char* dirLstEnd = dirLstBgn + std::strlen(dirLstBgn);
         assert(!*dirLstEnd);
         std::vector<path> dataDirLst{};
